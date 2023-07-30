@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \GroceryItem.name, order: .forward, animation: .easeIn) private var groceryItems: [GroceryItem]
     @Query(FetchDescriptor(predicate: #Predicate {$0.isBought == true}, sortBy: [SortDescriptor(\GroceryItem.name, order: .forward)])) var bought: [GroceryItem]
+    @Query(FetchDescriptor(predicate: #Predicate {$0.isBought == false}, sortBy: [SortDescriptor(\GroceryItem.name, order: .forward)])) var notBought: [GroceryItem]
     @State var text = ""
     
     var body: some View {
@@ -28,6 +29,11 @@ struct ContentView: View {
                     })
                     Section("Acheté") {
                         ForEach(bought) { grocery in
+                            GroceryView(grocery: grocery)
+                        }
+                    }
+                    Section("Non acheté") {
+                        ForEach(notBought) { grocery in
                             GroceryView(grocery: grocery)
                         }
                     }
