@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \GroceryItem.name, order: .forward, animation: .easeIn) private var groceryItems: [GroceryItem]
+    @Query(sort: \GroceryItem.name, order: .forward) private var groceryItems: [GroceryItem]
     @Query(FetchDescriptor(predicate: #Predicate {$0.isBought == true}, sortBy: [SortDescriptor(\GroceryItem.name, order: .forward)])) var bought: [GroceryItem]
     @Query(FetchDescriptor(predicate: #Predicate {$0.isBought == false}, sortBy: [SortDescriptor(\GroceryItem.name, order: .forward)])) var notBought: [GroceryItem]
     @State var text = ""
